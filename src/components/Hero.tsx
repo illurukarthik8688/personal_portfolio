@@ -13,13 +13,7 @@ const Hero = () => {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-full shadow-lg mb-8 animate-fadeInUp">
-            <Sparkles className="text-purple-600 dark:text-purple-400" size={20} />
-            <span className="text-sm font-medium bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-              Available for opportunities
-            </span>
-          </div>
+          {/* Badge removed: "Available for opportunities" */}
 
           {/* Main Heading */}
           <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-extrabold text-gray-900 dark:text-white mb-6 animate-fadeInUp">
