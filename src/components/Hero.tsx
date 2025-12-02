@@ -77,7 +77,7 @@ const Hero = () => {
               <Github size={24} className="text-gray-700 dark:text-gray-300 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors" />
             </a>
             <a
-              href="https://linkedin.com/in/illurukarthik"
+              href="https://www.linkedin.com/in/illuru-karthik-503059269/"
               target="_blank"
               rel="noopener noreferrer"
               className="group p-4 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"

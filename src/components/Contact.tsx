@@ -1,4 +1,5 @@
 import { Mail, Phone, Github, Linkedin, MapPin, Send, MessageCircle, Heart, Sparkles, CheckCircle } from 'lucide-react';
+import Comments from './Comments';
 
 const Contact = () => {
   return (
@@ -150,6 +151,11 @@ const Contact = () => {
               <span className="font-semibold text-gray-700">Available for new opportunities</span>
             </div>
           </div>
+        </div>
+
+        {/* Comments section (Utterances) */}
+        <div className="mt-16 max-w-4xl mx-auto animate-fadeInUp" style={{ animationDelay: '0.6s' }}>
+          <Comments />
         </div>
 
         {/* Footer */}
