@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, MessageSquare, User } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, MessageSquare, User, Target } from 'lucide-react';
 import { useState } from 'react';
 import { supabase } from '../lib/supabase';
 import toast, { Toaster } from 'react-hot-toast';
@@ -91,7 +91,7 @@ const Contact = () => {
               {[
                 { icon: Mail, label: 'Email', value: 'illurukarthik991@gmail.com', href: 'mailto:illurukarthik991@gmail.com' },
                 { icon: Phone, label: 'Phone', value: '+91 8688982040', href: 'tel:+918688982040' },
-                { icon: MapPin, label: 'Location', value: 'Hyderabad, India', href: '#' },
+                { icon: MapPin, label: 'Location', value: 'Kurnool, India', href: 'https://maps.app.goo.gl/qnmjwrPS6BLGvZ3EA' },
               ].map((item, index) => (
                 <a
                   key={index}

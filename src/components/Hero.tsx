@@ -72,7 +72,7 @@ const Hero = () => {
               <Code2 size={24} />
             </span>
             <p className="text-2xl sm:text-3xl lg:text-4xl font-bold text-text-secondary">
-              AI & ML Specialist
+              AI & ML Enthusiast.
             </p>
             <span className="p-2 bg-secondary-light/10 rounded-lg text-secondary">
               <Cpu size={24} />
