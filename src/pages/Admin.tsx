@@ -16,7 +16,9 @@ const Admin = () => {
     const [session, setSession] = useState<any>(null);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [newPassword, setNewPassword] = useState(''); // New state for password update
     const [loading, setLoading] = useState(false);
+    const [updateLoading, setUpdateLoading] = useState(false); // New loading state for password update
     const [messages, setMessages] = useState<Message[]>([]);
     const [refreshing, setRefreshing] = useState(false);
 
@@ -72,6 +74,22 @@ const Admin = () => {
         await supabase.auth.signOut();
     };
 
+    const handleUpdatePassword = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setUpdateLoading(true);
+        const { error } = await supabase.auth.updateUser({
+            password: newPassword
+        });
+
+        if (error) {
+            toast.error(error.message);
+        } else {
+            toast.success('Password updated successfully!');
+            setNewPassword('');
+        }
+        setUpdateLoading(false);
+    };
+
     const handleDelete = async (id: number) => {
         if (!confirm('Are you sure you want to delete this message?')) return;
         const { error } = await supabase.from('messages').delete().eq('id', id);
@@ -118,13 +136,32 @@ const Admin = () => {
                                 required
                             />
                         </div>
-                        <button
-                            type="submit"
-                            disabled={loading}
-                            className="w-full py-2 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition-colors disabled:opacity-50"
-                        >
-                            {loading ? 'Logging in...' : 'Login'}
-                        </button>
+                        <div className="flex flex-col gap-3">
+                            <button
+                                type="submit"
+                                disabled={loading}
+                                className="w-full py-2 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition-colors disabled:opacity-50"
+                            >
+                                {loading ? 'Logging in...' : 'Login'}
+                            </button>
+                            <button
+                                type="button"
+                                onClick={async () => {
+                                    if (!email) {
+                                        toast.error('Please enter your email address first');
+                                        return;
+                                    }
+                                    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+                                        redirectTo: window.location.origin + '/admin',
+                                    });
+                                    if (error) toast.error(error.message);
+                                    else toast.success('Check your email for the password reset link!');
+                                }}
+                                className="text-sm text-primary hover:underline text-center"
+                            >
+                                Forgot Password?
+                            </button>
+                        </div>
                     </form>
                 </motion.div>
             </div>
@@ -135,12 +172,32 @@ const Admin = () => {
         <div className="min-h-screen bg-gray-50 dark:bg-slate-900 p-6 md:p-12">
             <Toaster position="top-right" />
             <div className="max-w-6xl mx-auto">
-                <div className="flex justify-between items-center mb-8">
+                <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
                     <h1 className="text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
                         <Mail className="text-primary" />
                         Messages
                     </h1>
-                    <div className="flex gap-4">
+
+                    <div className="flex gap-4 items-center">
+                        <form onSubmit={handleUpdatePassword} className="flex gap-2">
+                            <input
+                                type="password"
+                                placeholder="New Password"
+                                value={newPassword}
+                                onChange={(e) => setNewPassword(e.target.value)}
+                                className="px-3 py-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm outline-none focus:ring-2 focus:ring-primary"
+                                required
+                                minLength={6}
+                            />
+                            <button
+                                type="submit"
+                                disabled={updateLoading}
+                                className="px-3 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary-dark transition-colors disabled:opacity-50 whitespace-nowrap"
+                            >
+                                {updateLoading ? 'Updating...' : 'Update Password'}
+                            </button>
+                        </form>
+
                         <button
                             onClick={fetchMessages}
                             className={`p-2 rounded-lg bg-white dark:bg-slate-800 text-gray-600 dark:text-gray-300 shadow-sm hover:text-primary transition-colors ${refreshing ? 'animate-spin' : ''}`}
