@@ -108,7 +108,7 @@ const Hero = () => {
             </a>
 
             <a target='blank'
-              href="https://drive.google.com/file/d/1AmSTWVgMvhAhIvwxlQvyaCZTuMLQMcL4/view?usp=sharing"
+              href="https://drive.google.com/file/d/1QY001aC-wdSVPxAWE4HEqL1TbMafydgp/view"
               download="Karthik_Resume.pdf"
               className="inline-flex items-center gap-2 px-8 py-4 border-2 border-primary-light/30 text-primary dark:text-primary-light rounded-full font-semibold hover:bg-primary-light/5 hover:border-primary-light hover:scale-105 transition-all duration-300"
             >
