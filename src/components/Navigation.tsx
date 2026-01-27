@@ -38,6 +38,24 @@ const Navigation = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    setIsOpen(false);
+
+    const targetId = href.substring(1);
+    const element = document.getElementById(targetId);
+
+    if (element) {
+      // Use setTimeout to ensure menu closes before scrolling, preventing layout thrashing on mobile
+      setTimeout(() => {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+
+      // Manually update URL without jumping
+      window.history.pushState({}, '', href);
+    }
+  };
+
   return (
     <nav
       className={clsx(
@@ -50,6 +68,7 @@ const Navigation = () => {
           <a
             href="#home"
             className="flex items-center gap-2 group cursor-pointer"
+            onClick={(e) => handleNavClick(e, '#home')}
           >
             <motion.div
               whileHover={{ rotate: 180 }}
@@ -68,6 +87,7 @@ const Navigation = () => {
               <a
                 key={item.name}
                 href={item.href}
+                onClick={(e) => handleNavClick(e, item.href)}
                 className={clsx(
                   'relative text-sm font-medium transition-colors duration-300',
                   activeSection === item.href.substring(1)
@@ -92,6 +112,7 @@ const Navigation = () => {
 
             <a
               href="#contact"
+              onClick={(e) => handleNavClick(e, '#contact')}
               className="px-6 py-2 bg-gradient-to-r from-primary to-secondary text-white rounded-full font-medium shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 transform"
             >
               Hire Me
@@ -136,7 +157,7 @@ const Navigation = () => {
                       ? 'bg-primary/10 text-primary'
                       : 'text-text-secondary hover:bg-gray-100 dark:hover:bg-slate-800'
                   )}
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => handleNavClick(e, item.href)}
                 >
                   {item.name}
                 </a>
@@ -144,7 +165,7 @@ const Navigation = () => {
               <a
                 href="#contact"
                 className="block px-4 py-3 bg-gradient-to-r from-primary to-secondary text-white text-center rounded-xl font-medium shadow-lg"
-                onClick={() => setIsOpen(false)}
+                onClick={(e) => handleNavClick(e, '#contact')}
               >
                 Hire Me
               </a>
