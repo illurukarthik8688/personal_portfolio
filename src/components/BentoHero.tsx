@@ -22,16 +22,16 @@ const BentoHero = () => {
                                 <span className="w-2 h-2 bg-green-400 rounded-full" />
                                 Open to opportunities
                             </div>
-                            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-[var(--text-primary)] leading-tight mb-4">
+                            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-display font-bold text-[var(--text-primary)] leading-tight mb-4">
                                 Hey, I'm{' '}
                                 <span className="text-primary">Karthik</span>
                                 <span className="ml-2">👋</span>
                             </h1>
-                            <p className="text-lg text-[var(--text-secondary)] max-w-md">
+                            <p className="text-base sm:text-lg text-[var(--text-secondary)] max-w-md">
                                 AI & ML Engineer building intelligent solutions. Final-year B.Tech @ GPCET.
                             </p>
                         </div>
-                        <div className="flex gap-3 mt-6">
+                        <div className="flex flex-wrap gap-3 mt-6">
                             <a
                                 href="#contact"
                                 className="px-6 py-3 bg-primary text-white rounded-xl font-semibold hover:bg-primary-dark transition-colors flex items-center gap-2"
