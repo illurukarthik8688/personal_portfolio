@@ -6,25 +6,26 @@ export default {
     extend: {
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
-        display: ['Outfit', 'sans-serif'],
+        display: ['Space Grotesk', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace'],
       },
       colors: {
-        // Dark Mode Palette
+        // Dark Mode Palette - Clean & Professional
         dark: {
-          bg: '#0F172A',      // Slate 900
-          surface: '#1E293B', // Slate 800
-          border: '#334155',  // Slate 700
+          bg: '#0f1419',      // Deep dark blue-black
+          surface: '#1a2332', // Dark blue-gray
+          border: '#2d3a4f',  // Muted blue border
         },
-        // Accents
+        // Accents - Professional Blue/Cyan
         primary: {
-          light: '#6366f1', // Indigo 500
-          DEFAULT: '#4f46e5', // Indigo 600
-          dark: '#4338ca', // Indigo 700
+          light: '#60a5fa',   // Light blue
+          DEFAULT: '#3b82f6', // Blue 500
+          dark: '#2563eb',    // Blue 600
         },
         secondary: {
-          light: '#a855f7', // Purple 500
-          DEFAULT: '#9333ea', // Purple 600
-          dark: '#7e22ce', // Purple 700
+          light: '#22d3ee',   // Cyan 400
+          DEFAULT: '#06b6d4', // Cyan 500
+          dark: '#0891b2',    // Cyan 600
         },
       },
       animation: {
@@ -70,3 +71,6 @@ export default {
   },
   plugins: [],
 };
+
+// Note: Add this to index.css for shimmer animation
+// .animate-shimmer { animation: shimmer 3s linear infinite; }

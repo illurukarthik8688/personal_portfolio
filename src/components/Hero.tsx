@@ -28,7 +28,7 @@ const Hero = () => {
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
       {/* Animated Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 via-purple-50 to-blue-50 dark:from-slate-900 dark:via-purple-900/10 dark:to-slate-900 animate-gradient"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 dark:from-[#1a1410] dark:via-[#2a1410] dark:to-[#1a1410] animate-gradient"></div>
 
       {/* Abstract Shapes */}
       <motion.div
@@ -37,7 +37,7 @@ const Hero = () => {
           rotate: [0, 5, -5, 0],
         }}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-20 left-10 w-96 h-96 bg-primary-light/20 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-30 pointer-events-none"
+        className="absolute top-20 left-10 w-96 h-96 bg-primary/20 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-30 pointer-events-none"
       />
       <motion.div
         animate={{
@@ -45,7 +45,7 @@ const Hero = () => {
           rotate: [0, -5, 5, 0],
         }}
         transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        className="absolute bottom-20 right-10 w-96 h-96 bg-secondary-light/20 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-30 pointer-events-none"
+        className="absolute bottom-20 right-10 w-96 h-96 bg-secondary/20 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-30 pointer-events-none"
       />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
