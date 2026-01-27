@@ -40,7 +40,7 @@ const BentoHero = () => {
                                 Let's Talk
                             </a>
                             <a
-                                href="https://drive.google.com/file/d/1AmSTWVgMvhAhIvwxlQvyaCZTuMLQMcL4/view"
+                                href="https://drive.google.com/file/d/1QY001aC-wdSVPxAWE4HEqL1TbMafydgp/view"
                                 target="_blank"
                                 className="px-6 py-3 bg-white/10 rounded-xl font-semibold flex items-center gap-2 border border-white/20 hover:bg-white/20 transition-colors"
                             >
