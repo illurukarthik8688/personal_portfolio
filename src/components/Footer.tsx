@@ -1,41 +1,47 @@
-import { Github, Linkedin, Mail, Twitter, Lock } from 'lucide-react';
+import { Github, Linkedin, Mail, Heart } from 'lucide-react';
 
 const Footer = () => {
+    const currentYear = new Date().getFullYear();
+
+    const links = [
+        { icon: Github, href: 'https://github.com/illurukarthik8688', label: 'GitHub' },
+        { icon: Linkedin, href: 'https://www.linkedin.com/in/illuru-karthik-503059269/', label: 'LinkedIn' },
+        { icon: Mail, href: 'mailto:illurukarthik991@gmail.com', label: 'Email' },
+    ];
+
     return (
-        <footer className="bg-white dark:bg-slate-900 border-t border-gray-100 dark:border-slate-800 py-12">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <footer className="py-12 border-t border-[var(--border)]">
+            <div className="container-main">
                 <div className="flex flex-col md:flex-row justify-between items-center gap-6">
                     <div className="text-center md:text-left">
-                        <span className="text-2xl font-display font-bold text-gradient">
-                            Illuru Karthik
-                        </span>
-                        <p className="text-text-secondary mt-2 text-sm">
-                            Building digital experiences with passion and code.
+                        <p className="font-display font-semibold text-lg text-gradient">
+                            Karthik Illuru
+                        </p>
+                        <p className="text-sm text-[var(--text-muted)]">
+                            AI & ML Engineer
                         </p>
                     </div>
 
-                    <div className="flex gap-6">
-                        {[
-                            { icon: Github, href: "https://github.com/illurukarthik8688" },
-                            { icon: Linkedin, href: "https://www.linkedin.com/in/illuru-karthik-503059269/" },
-                            { icon: Twitter, href: "#" }, // Add Twitter if available
-                            { icon: Mail, href: "mailto:illurukarthik991@gmail.com" },
-                        ].map((social, index) => (
+                    <div className="flex items-center gap-3">
+                        {links.map((link) => (
                             <a
-                                key={index}
-                                href={social.href}
+                                key={link.label}
+                                href={link.href}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-text-secondary hover:text-primary transition-colors transform hover:scale-110"
+                                className="p-2.5 rounded-xl border border-[var(--border)] text-[var(--text-muted)] hover:text-accent hover:border-accent/50 transition-colors"
+                                aria-label={link.label}
                             >
-                                <social.icon size={24} />
+                                <link.icon size={18} />
                             </a>
                         ))}
                     </div>
                 </div>
 
-                <div className="border-t border-gray-100 dark:border-slate-800 mt-8 pt-8 text-center text-sm text-text-secondary">
-                    <p>&copy; {new Date().getFullYear()} Illuru Karthik. All rights reserved.</p>
+                <div className="mt-8 pt-6 border-t border-[var(--border)] text-center">
+                    <p className="text-sm text-[var(--text-muted)] flex items-center justify-center gap-1">
+                        © {currentYear} • made by Illuru karthik.
+                    </p>
                 </div>
             </div>
         </footer>

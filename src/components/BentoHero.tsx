@@ -1,158 +1,156 @@
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail, MapPin, Download, Code2, Zap, Trophy } from 'lucide-react';
+import { ArrowRight, Github, Linkedin, Download } from 'lucide-react';
 
 const BentoHero = () => {
-    const techStack = ['Python', 'TensorFlow', 'Docker', 'React', 'TypeScript', 'AWS'];
+    const stats = [
+        { value: '8.02', label: 'CGPA' },
+        { value: '5+', label: 'Projects' },
+        { value: '2', label: 'Internships' },
+    ];
+
+    const techStack = ['Python', 'TensorFlow', 'Docker', 'React', 'OpenCV', 'Flask'];
 
     return (
-        <section id="home" className="min-h-screen pt-8 pb-32 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-6xl mx-auto">
-                {/* Bento Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[minmax(180px,auto)]">
+        <section id="home" className="min-h-screen flex items-center section relative overflow-hidden">
+            {/* Gradient orbs */}
+            <div className="absolute top-1/4 -left-32 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
+            <div className="absolute bottom-1/4 -right-32 w-80 h-80 bg-mint/10 rounded-full blur-3xl" />
 
-                    {/* Main Intro Card */}
+            <div className="container-main relative z-10">
+                <div className="grid lg:grid-cols-5 gap-12 lg:gap-16 items-center">
+                    {/* Left content - 3 cols */}
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 40 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1 }}
-                        className="md:col-span-2 lg:col-span-2 row-span-2 p-8 rounded-3xl bg-[var(--bg-secondary)] border border-white/10 dark:border-[#2d3a4f]/50 flex flex-col justify-between"
+                        transition={{ duration: 0.7 }}
+                        className="lg:col-span-3"
                     >
-                        <div>
-                            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/20 text-green-400 text-sm font-medium mb-6">
-                                <span className="w-2 h-2 bg-green-400 rounded-full" />
-                                Open to opportunities
-                            </div>
-                            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-display font-bold text-[var(--text-primary)] leading-tight mb-4">
-                                Hey, I'm{' '}
-                                <span className="text-primary">Karthik</span>
-                                <span className="ml-2">👋</span>
-                            </h1>
-                            <p className="text-base sm:text-lg text-[var(--text-secondary)] max-w-md">
-                                AI & ML Engineer building intelligent solutions. Final-year B.Tech @ GPCET.
-                            </p>
+                        {/* Status */}
+                        <div className="flex items-center gap-3 mb-8">
+                            <span className="status-dot" />
+                            <span className="text-sm font-medium text-mint">
+                                Available for opportunities
+                            </span>
                         </div>
-                        <div className="flex flex-wrap gap-3 mt-6">
-                            <a
-                                href="#contact"
-                                className="px-6 py-3 bg-primary text-white rounded-xl font-semibold hover:bg-primary-dark transition-colors flex items-center gap-2"
-                            >
-                                <Mail size={18} />
-                                Let's Talk
+
+                        {/* Headline */}
+                        <h1 className="heading-hero mb-6">
+                            <span className="text-[var(--text)]">Hi, I'm </span>
+                            <span className="text-gradient">Karthik</span>
+                            <br />
+                            <span className="text-[var(--text-secondary)]">AI & ML Engineer</span>
+                        </h1>
+
+                        {/* Description */}
+                        <p className="text-body max-w-xl mb-8">
+                            I build intelligent systems that solve real problems. Specializing in
+                            computer vision, MLOps, and creating AI solutions that are both
+                            powerful and production-ready.
+                        </p>
+
+                        {/* CTAs */}
+                        <div className="flex flex-wrap gap-4 mb-12">
+                            <a href="#contact" className="btn-primary">
+                                Let's Connect
+                                <ArrowRight size={18} />
                             </a>
                             <a
                                 href="https://drive.google.com/file/d/1QY001aC-wdSVPxAWE4HEqL1TbMafydgp/view"
                                 target="_blank"
-                                className="px-6 py-3 bg-white/10 rounded-xl font-semibold flex items-center gap-2 border border-white/20 hover:bg-white/20 transition-colors"
+                                className="btn-outline"
                             >
                                 <Download size={18} />
                                 Resume
                             </a>
                         </div>
-                    </motion.div>
 
-                    {/* CGPA Card */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 }}
-                        className="p-6 rounded-3xl bg-[var(--bg-secondary)] border border-white/10 dark:border-[#3d332b]/50 flex flex-col justify-between"
-                    >
-                        <Trophy className="text-yellow-500" size={28} />
-                        <div>
-                            <p className="text-3xl font-bold text-[var(--text-primary)]">8.02</p>
-                            <p className="text-sm text-[var(--text-secondary)]">CGPA</p>
-                        </div>
-                    </motion.div>
-
-                    {/* Projects Card */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.3 }}
-                        className="p-6 rounded-3xl bg-[var(--bg-secondary)] border border-white/10 dark:border-[#3d332b]/50 flex flex-col justify-between"
-                    >
-                        <Code2 className="text-primary" size={28} />
-                        <div>
-                            <p className="text-3xl font-bold text-[var(--text-primary)]">5+</p>
-                            <p className="text-sm text-[var(--text-secondary)]">Projects</p>
-                        </div>
-                    </motion.div>
-
-                    {/* Internships Card */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.35 }}
-                        className="p-6 rounded-3xl bg-[var(--bg-secondary)] border border-white/10 dark:border-[#3d332b]/50 flex flex-col justify-between"
-                    >
-                        <Zap className="text-green-500" size={28} />
-                        <div>
-                            <p className="text-3xl font-bold text-[var(--text-primary)]">2</p>
-                            <p className="text-sm text-[var(--text-secondary)]">Internships</p>
-                        </div>
-                    </motion.div>
-
-                    {/* Location Card */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.4 }}
-                        className="p-6 rounded-3xl bg-[var(--bg-secondary)] border border-white/10 dark:border-[#3d332b]/50 flex flex-col justify-between"
-                    >
-                        <MapPin className="text-red-400" size={28} />
-                        <div>
-                            <p className="text-sm text-[var(--text-secondary)]">Based in</p>
-                            <p className="text-xl font-bold text-[var(--text-primary)]">India 🇮🇳</p>
-                        </div>
-                    </motion.div>
-
-                    {/* Tech Stack Card */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.45 }}
-                        className="md:col-span-2 p-6 rounded-3xl bg-[var(--bg-secondary)] border border-white/10 dark:border-[#3d332b]/50"
-                    >
-                        <p className="text-sm text-[var(--text-secondary)] mb-4">Tech Stack</p>
-                        <div className="flex flex-wrap gap-2">
-                            {techStack.map((tech) => (
-                                <span
-                                    key={tech}
-                                    className="px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium border border-primary/20"
-                                >
-                                    {tech}
-                                </span>
-                            ))}
-                        </div>
-                    </motion.div>
-
-                    {/* Social Links Card */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.5 }}
-                        className="md:col-span-2 lg:col-span-2 p-6 rounded-3xl bg-[var(--bg-secondary)] border border-white/10 dark:border-[#3d332b]/50"
-                    >
-                        <p className="text-sm text-[var(--text-secondary)] mb-4">Connect</p>
-                        <div className="flex gap-4">
+                        {/* Social links */}
+                        <div className="flex items-center gap-4">
                             {[
-                                { icon: Github, href: 'https://github.com/illurukarthik8688', label: 'GitHub' },
-                                { icon: Linkedin, href: 'https://www.linkedin.com/in/illuru-karthik-503059269/', label: 'LinkedIn' },
-                                { icon: Mail, href: 'mailto:illurukarthik991@gmail.com', label: 'Email' },
-                            ].map((social) => (
-                                <a
-                                    key={social.label}
+                                { icon: Github, href: 'https://github.com/illurukarthik8688' },
+                                { icon: Linkedin, href: 'https://www.linkedin.com/in/illuru-karthik-503059269/' },
+                            ].map((social, i) => (
+                                <motion.a
+                                    key={i}
                                     href={social.href}
                                     target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="p-4 rounded-2xl bg-white/5 hover:bg-primary/10 transition-colors"
+                                    whileHover={{ scale: 1.1 }}
+                                    className="p-3 rounded-xl border border-[var(--border)] text-[var(--text-muted)] hover:text-accent hover:border-accent/50 transition-colors"
                                 >
-                                    <social.icon size={24} className="text-[var(--text-secondary)]" />
-                                </a>
+                                    <social.icon size={20} />
+                                </motion.a>
                             ))}
                         </div>
                     </motion.div>
 
+                    {/* Right cards - 2 cols */}
+                    <motion.div
+                        initial={{ opacity: 0, x: 40 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.7, delay: 0.2 }}
+                        className="lg:col-span-2 space-y-4"
+                    >
+                        {/* Stats */}
+                        <div className="grid grid-cols-3 gap-3">
+                            {stats.map((stat, i) => (
+                                <motion.div
+                                    key={stat.label}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.4 + i * 0.1 }}
+                                    className="card text-center py-5"
+                                >
+                                    <p className="text-2xl font-bold text-[var(--text)] font-display">
+                                        {stat.value}
+                                    </p>
+                                    <p className="text-xs text-[var(--text-muted)] mt-1">{stat.label}</p>
+                                </motion.div>
+                            ))}
+                        </div>
+
+                        {/* Education */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.6 }}
+                            className="card"
+                        >
+                            <p className="text-sm text-[var(--text-muted)] mb-2">Currently</p>
+                            <p className="font-semibold text-[var(--text)]">Final Year B.Tech</p>
+                            <p className="text-[var(--text-secondary)]">CSE (AI) @ GPCET</p>
+                        </motion.div>
+
+                        {/* Tech stack */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.7 }}
+                            className="card"
+                        >
+                            <p className="text-sm text-[var(--text-muted)] mb-3">Tech Stack</p>
+                            <div className="flex flex-wrap gap-2">
+                                {techStack.map((tech) => (
+                                    <span key={tech} className="tag">
+                                        {tech}
+                                    </span>
+                                ))}
+                            </div>
+                        </motion.div>
+
+                        {/* Location */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.8 }}
+                            className="card flex items-center gap-4"
+                        >
+                            <span className="text-3xl">🇮🇳</span>
+                            <div>
+                                <p className="text-sm text-[var(--text-muted)]">Based in</p>
+                                <p className="font-medium text-[var(--text)]">Kurnool, India</p>
+                            </div>
+                        </motion.div>
+                    </motion.div>
                 </div>
             </div>
         </section>

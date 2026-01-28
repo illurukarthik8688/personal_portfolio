@@ -1,15 +1,11 @@
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, MessageSquare, User, Target } from 'lucide-react';
+import { Mail, MapPin, Send, ArrowUpRight } from 'lucide-react';
 import { useState } from 'react';
 import { supabase } from '../lib/supabase';
 import toast, { Toaster } from 'react-hot-toast';
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -17,173 +13,121 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabase
-        .from('messages')
-        .insert([
-          { name: formData.name, email: formData.email, message: formData.message }
-        ]);
-
+      const { error } = await supabase.from('messages').insert([formData]);
       if (error) throw error;
 
       toast.success('Message sent successfully!', {
-        duration: 3000,
-        position: 'bottom-center',
-        style: {
-          background: '#10B981',
-          color: '#fff',
-          borderRadius: '10px',
-          fontWeight: 'bold',
-        },
-        iconTheme: {
-          primary: '#fff',
-          secondary: '#10B981',
-        },
+        style: { background: 'var(--surface)', color: 'var(--text)', border: '1px solid var(--border)' },
       });
-
       setFormData({ name: '', email: '', message: '' });
-    } catch (error: any) {
-      console.error('Error sending message:', error);
-      toast.error('Failed to send message. Please try again or email directly.');
+    } catch (error) {
+      toast.error('Failed to send. Try emailing directly.');
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
   return (
-    <section id="contact" className="py-20 bg-secondary-50 dark:bg-slate-900/50 relative">
-      <Toaster />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="contact" className="section">
+      <Toaster position="bottom-center" />
+      <div className="divider mb-24" />
+      <div className="container-main">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl sm:text-4xl font-bold font-display text-text-primary mb-4">
-            Get in <span className="text-gradient">Touch</span>
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"></div>
-        </motion.div>
+          {/* Section header */}
+          <div className="flex items-center gap-4 mb-12">
+            <span className="text-sm font-mono text-accent">04</span>
+            <h2 className="heading-section text-[var(--text)]">Get in Touch</h2>
+            <div className="flex-1 h-px bg-[var(--border)]" />
+          </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="space-y-8"
-          >
-            <h3 className="text-2xl font-bold text-text-primary">Let's Chat!</h3>
-            <p className="text-text-secondary text-lg leading-relaxed">
-              I'm currently looking for new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!
-            </p>
+          <div className="grid lg:grid-cols-2 gap-16">
+            {/* Left - Info */}
+            <div>
+              <p className="text-body text-xl mb-8">
+                I'm currently looking for new opportunities.
+                Whether you have a project in mind or just want to connect,
+                I'd love to hear from you.
+              </p>
 
-            <div className="space-y-6">
-              {[
-                { icon: Mail, label: 'Email', value: 'illurukarthik991@gmail.com', href: 'mailto:illurukarthik991@gmail.com' },
-                { icon: Phone, label: 'Phone', value: '+91 8688982040', href: 'tel:+918688982040' },
-                { icon: MapPin, label: 'Location', value: 'Kurnool, India', href: 'https://maps.app.goo.gl/qnmjwrPS6BLGvZ3EA' },
-              ].map((item, index) => (
+              <div className="space-y-4">
                 <a
-                  key={index}
-                  href={item.href}
-                  className="flex items-center gap-4 p-4 rounded-2xl bg-white dark:bg-slate-800 shadow-sm hover:shadow-md transition-all duration-300 group"
+                  href="mailto:illurukarthik991@gmail.com"
+                  className="card card-hover flex items-center gap-4 group"
                 >
-                  <div className="p-3 bg-primary-light/10 text-primary rounded-xl group-hover:scale-110 transition-transform">
-                    <item.icon size={24} />
+                  <div className="p-3 rounded-xl bg-accent/10 text-accent group-hover:bg-accent group-hover:text-white transition-colors">
+                    <Mail size={20} />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-xs text-[var(--text-muted)] uppercase tracking-wider">Email</p>
+                    <p className="font-medium text-[var(--text)]">illurukarthik991@gmail.com</p>
+                  </div>
+                  <ArrowUpRight size={18} className="text-[var(--text-muted)] group-hover:text-accent transition-colors" />
+                </a>
+
+                <div className="card flex items-center gap-4">
+                  <div className="p-3 rounded-xl bg-mint/10 text-mint">
+                    <MapPin size={20} />
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-text-secondary">{item.label}</p>
-                    <p className="text-lg font-bold text-text-primary">{item.value}</p>
+                    <p className="text-xs text-[var(--text-muted)] uppercase tracking-wider">Location</p>
+                    <p className="font-medium text-[var(--text)]">Kurnool, India</p>
                   </div>
-                </a>
-              ))}
+                </div>
+              </div>
             </div>
-          </motion.div>
 
-          {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="glass-card p-8 rounded-3xl"
-          >
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-text-secondary mb-2">Name</label>
-                <div className="relative">
+            {/* Right - Form */}
+            <form onSubmit={handleSubmit} className="card space-y-5">
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm text-[var(--text-secondary)] mb-2">Name</label>
                   <input
                     type="text"
-                    id="name"
                     name="name"
                     value={formData.name}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl bg-white/50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all pl-10"
-                    placeholder="Your Name"
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     required
+                    className="w-full px-4 py-3 bg-[var(--bg-alt)] border border-[var(--border)] rounded-xl text-[var(--text)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-accent transition-colors"
+                    placeholder="Your name"
                   />
-                  <User className="absolute left-3 top-3.5 text-text-secondary" size={18} />
                 </div>
-              </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-text-secondary mb-2">Email</label>
-                <div className="relative">
+                <div>
+                  <label className="block text-sm text-[var(--text-secondary)] mb-2">Email</label>
                   <input
                     type="email"
-                    id="email"
                     name="email"
                     value={formData.email}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl bg-white/50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all pl-10"
-                    placeholder="your@email.com"
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     required
+                    className="w-full px-4 py-3 bg-[var(--bg-alt)] border border-[var(--border)] rounded-xl text-[var(--text)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-accent transition-colors"
+                    placeholder="your@email.com"
                   />
-                  <Mail className="absolute left-3 top-3.5 text-text-secondary" size={18} />
                 </div>
               </div>
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-text-secondary mb-2">Message</label>
-                <div className="relative">
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    rows={4}
-                    className="w-full px-4 py-3 rounded-xl bg-white/50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all pl-10 resize-none"
-                    placeholder="Your message..."
-                    required
-                  ></textarea>
-                  <MessageSquare className="absolute left-3 top-3.5 text-text-secondary" size={18} />
-                </div>
+                <label className="block text-sm text-[var(--text-secondary)] mb-2">Message</label>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  required
+                  rows={5}
+                  className="w-full px-4 py-3 bg-[var(--bg-alt)] border border-[var(--border)] rounded-xl text-[var(--text)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-accent transition-colors resize-none"
+                  placeholder="Tell me about your project..."
+                />
               </div>
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-bold shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
-              >
-                {isSubmitting ? (
-                  <>Sending...</>
-                ) : (
-                  <>
-                    <Send size={20} />
-                    Send Message
-                  </>
-                )}
+              <button type="submit" disabled={isSubmitting} className="btn-primary w-full sm:w-auto">
+                {isSubmitting ? 'Sending...' : 'Send Message'}
+                <Send size={16} />
               </button>
             </form>
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

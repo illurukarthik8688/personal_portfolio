@@ -1,10 +1,11 @@
 import { motion } from 'framer-motion';
-import { Home, User, FolderKanban, Mail, Sun, Moon, GripVertical } from 'lucide-react';
+import { Home, User, Briefcase, FolderKanban, Mail, Sun, Moon, GripVertical } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 
 const FloatingDock = () => {
-    const [isDark, setIsDark] = useState(false);
-    const constraintsRef = useRef(null);
+    const [isDark, setIsDark] = useState(true); // Start in dark mode for this design
+    const [activeSection, setActiveSection] = useState('home');
+    const constraintsRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const root = window.document.documentElement;
@@ -15,15 +16,36 @@ const FloatingDock = () => {
         }
     }, [isDark]);
 
-    const handleNavClick = (e: React.MouseEvent<HTMLButtonElement>, href: string) => {
-        e.preventDefault();
-        const targetId = href.substring(1);
-        const element = document.getElementById(targetId);
+    useEffect(() => {
+        // Set dark mode on mount
+        window.document.documentElement.classList.add('dark');
+    }, []);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const sections = ['home', 'about', 'projects', 'experience', 'contact'];
+            const scrollPosition = window.scrollY + 200;
+
+            for (const section of sections) {
+                const element = document.getElementById(section);
+                if (element) {
+                    const { offsetTop, offsetHeight } = element;
+                    if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+                        setActiveSection(section);
+                        break;
+                    }
+                }
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    const handleClick = (href: string) => {
+        const element = document.getElementById(href.substring(1));
         if (element) {
-            setTimeout(() => {
-                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 100);
-            window.history.pushState({}, '', href);
+            element.scrollIntoView({ behavior: 'smooth' });
         }
     };
 
@@ -31,61 +53,72 @@ const FloatingDock = () => {
         { icon: Home, href: '#home', label: 'Home' },
         { icon: User, href: '#about', label: 'About' },
         { icon: FolderKanban, href: '#projects', label: 'Projects' },
+        { icon: Briefcase, href: '#experience', label: 'Experience' },
         { icon: Mail, href: '#contact', label: 'Contact' },
     ];
 
     return (
         <>
-            {/* Invisible container for drag constraints */}
-            <div
-                ref={constraintsRef}
-                className="fixed inset-0 pointer-events-none z-40"
-            />
+            <div ref={constraintsRef} className="fixed inset-0 pointer-events-none z-40" />
 
-            <motion.div
+            <motion.nav
                 drag
                 dragConstraints={constraintsRef}
                 dragElastic={0.1}
                 dragMomentum={false}
-                initial={{ y: 0, opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
-                className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 cursor-grab active:cursor-grabbing"
-                whileDrag={{ scale: 1.05 }}
+                whileDrag={{ scale: 1.02 }}
+                initial={{ y: 100, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.5, type: 'spring', stiffness: 100 }}
+                className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 cursor-grab active:cursor-grabbing"
             >
-                <div className="flex items-center gap-0.5 px-2 py-1.5 bg-white/90 dark:bg-[#1a2332]/95 backdrop-blur-xl rounded-xl border border-white/20 dark:border-[#2d3a4f]/50 shadow-2xl">
-
-                    {/* Drag Handle */}
-                    <div className="p-1.5 text-[var(--text-secondary)]/50 cursor-grab">
-                        <GripVertical className="w-4 h-4" />
+                <div className="flex items-center gap-1 px-2 py-2 bg-[var(--surface)] border border-[var(--border)] rounded-2xl shadow-2xl shadow-black/20 backdrop-blur-xl">
+                    {/* Drag handle */}
+                    <div className="p-2 text-[var(--text-muted)] cursor-grab active:cursor-grabbing">
+                        <GripVertical size={16} />
                     </div>
 
-                    {navItems.map((item) => (
-                        <motion.button
-                            key={item.label}
-                            onClick={(e) => handleNavClick(e, item.href)}
-                            whileTap={{ scale: 0.95 }}
-                            className="p-2 rounded-lg text-[var(--text-secondary)] hover:text-primary hover:bg-primary/10 transition-colors"
-                            aria-label={item.label}
-                        >
-                            <item.icon className="w-4 h-4" />
-                        </motion.button>
-                    ))}
+                    <div className="w-px h-5 bg-[var(--border)]" />
 
-                    {/* Divider */}
-                    <div className="w-px h-5 bg-gray-300 dark:bg-[#2d3a4f] mx-0.5" />
+                    {navItems.map((item) => {
+                        const isActive = activeSection === item.href.substring(1);
+                        return (
+                            <motion.button
+                                key={item.label}
+                                onClick={() => handleClick(item.href)}
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.95 }}
+                                className={`relative p-2.5 rounded-xl transition-all ${isActive
+                                        ? 'text-accent'
+                                        : 'text-[var(--text-muted)] hover:text-[var(--text)]'
+                                    }`}
+                                aria-label={item.label}
+                            >
+                                <item.icon size={18} />
+                                {isActive && (
+                                    <motion.div
+                                        layoutId="activeTab"
+                                        className="absolute inset-0 bg-accent/10 rounded-xl -z-10"
+                                        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                                    />
+                                )}
+                            </motion.button>
+                        );
+                    })}
 
-                    {/* Theme Toggle */}
+                    <div className="w-px h-5 bg-[var(--border)]" />
+
                     <motion.button
                         onClick={() => setIsDark(!isDark)}
+                        whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.95 }}
-                        className="p-2 rounded-lg text-[var(--text-secondary)] hover:text-secondary hover:bg-secondary/10 transition-colors"
+                        className="p-2.5 rounded-xl text-[var(--text-muted)] hover:text-mint transition-colors"
                         aria-label="Toggle theme"
                     >
-                        {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                        {isDark ? <Sun size={18} /> : <Moon size={18} />}
                     </motion.button>
                 </div>
-            </motion.div>
+            </motion.nav>
         </>
     );
 };

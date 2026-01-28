@@ -1,6 +1,5 @@
 import BentoHero from './BentoHero';
 import About from './About';
-import Skills from './Skills';
 import Projects from './Projects';
 import Experience from './Experience';
 import Contact from './Contact';
@@ -13,7 +12,6 @@ const Home = () => {
             <FloatingDock />
             <BentoHero />
             <About />
-            <Skills />
             <Projects />
             <Experience />
             <Contact />
